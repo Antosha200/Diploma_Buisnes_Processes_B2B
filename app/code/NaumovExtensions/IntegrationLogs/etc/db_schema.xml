@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+ * @category NaumovExtensions
+ * @package NaumovExtensions_IntegrationLogs
+ * @author Anton Naumov <anton2-2000@mail.ru>
+ * @copyright Copyright (c) 2023 NaumovExtensions
+  -->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="naumovextensions_integration_logs">
+        <column xsi:type="int" name="id" padding="11" unsigned="true" nullable="false" identity="true" comment="Id"/>
+        <column xsi:type="int" name="status" nullable="true" padding="11" unsigned="true" comment="Log status"/>
+        <column xsi:type="varchar" name="object" nullable="true" length="255" comment="Log object"/>
+        <column xsi:type="varchar" name="event" nullable="true" length="255" comment="Log event"/>
+        <column xsi:type="text" name="message" nullable="true" comment="log message"/>
+        <column xsi:type="mediumtext" name="data" nullable="true" comment="JSON log data"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+</schema>

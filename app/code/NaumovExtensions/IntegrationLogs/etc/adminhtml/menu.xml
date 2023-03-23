@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+ * @category NaumovExtensions
+ * @package NaumovExtensions_IntegrationLogs
+ * @author Anton Naumov <anton2-2000@mail.ru>
+ * @copyright Copyright (c) 2023 NaumovExtensions
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="NaumovExtensions_IntegrationLogs::integration_logs" title="Naumov Extensions"
+             module="NaumovExtensions_IntegrationLogs" sortOrder="100"
+             resource="NaumovExtensions_IntegrationLogs::integration_logs"/>
+        <add id="NaumovExtensions_IntegrationLogs::logsgrid" title="Integration Logs"
+             module="NaumovExtensions_IntegrationLogs"
+             sortOrder="50"
+             parent="NaumovExtensions_IntegrationLogs::integration_logs"
+             action="naumovextensions_integrationlogs/index/index"
+             resource="NaumovExtensions_IntegrationLogs::logsgrid"/>
+    </menu>
+</config>

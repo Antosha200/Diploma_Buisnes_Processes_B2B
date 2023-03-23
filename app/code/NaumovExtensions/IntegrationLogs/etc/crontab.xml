@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+ * @category NaumovExtensions
+ * @package NaumovExtensions_IntegrationLogs
+ * @author Anton Naumov <anton2-2000@mail.ru>
+ * @copyright Copyright (c) 2023 NaumovExtensions
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="integration_logs">
+        <job name="naumovextensions_logger_cleanup" instance="NaumovExtensions\IntegrationLogs\Cron\Cleanup"
+             method="execute">
+            <schedule>0 1 * * *</schedule>
+        </job>
+    </group>
+</config>

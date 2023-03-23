@@ -1,0 +1,40 @@
+<?php
+/**
+ * @category NaumovExtensions
+ * @package NaumovExtensions_IntegrationLogs
+ * @author Anton Naumov <anton2-2000@mail.ru>
+ * @copyright Copyright (c) 2023 NaumovExtensions
+ */
+?>
+<table class="admin__table-secondary">
+    <tbody>
+    <tr>
+        <td><?= $block->escapeHtml(__('ID')) ?>:</td>
+        <td><?= $block->escapeHtml(__($block['log']['id'])) ?></td>
+    </tr>
+    <tr>
+        <td><?= $block->escapeHtml(__('Status')) ?>:</td>
+        <td><?= $block->escapeHtml(__($block['log']['status'])) ?></td>
+    </tr>
+    <tr>
+        <td><?= $block->escapeHtml(__('Object')) ?>:</td>
+        <td><?= $block->escapeHtml(__($block['log']['object'])) ?></td>
+    </tr>
+    <tr>
+        <td><?= $block->escapeHtml(__('Event')) ?>:</td>
+        <td><?= $block->escapeHtml(__($block['log']['event'])) ?></td>
+    </tr>
+    <tr>
+        <td><?= $block->escapeHtml(__('Message')) ?>:</td>
+        <td><?= $block->escapeHtml(__($block['log']['message'])) ?></td>
+    </tr>
+    <tr>
+        <td><?= $block->escapeHtml(__('Created At')) ?>:</td>
+        <td><?= $block->escapeHtml(__($block['log']['created_at'])) ?></td>
+    </tr>
+    <tr>
+        <td><?= $block->escapeHtml(__('Data')) ?>:</td>
+        <td><?= $block->escapeHtml(__($block['log']['data'])) ?></td>
+    </tr>
+    </tbody>
+</table>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+ * @category NaumovExtensions
+ * @package NaumovExtensions_IntegrationLogs
+ * @author Anton Naumov <anton2-2000@mail.ru>
+ * @copyright Copyright (c) 2023 NaumovExtensions
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="NaumovExtensions" translate="label" sortOrder="100">
+            <label>Naumov Extensions</label>
+        </tab>
+        <section id="naumovextensions_integration_logs" translate="label" sortOrder="50" showInDefault="1"
+                 showInWebsite="1"
+                 showInStore="1">
+            <label>Integration Logs</label>
+            <tab>NaumovExtensions</tab>
+            <resource>NaumovExtensions_IntegrationLogs::config_integration_logs</resource>
+            <group id="settings" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Settings</label>
+                <field id="log_days" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0"
+                       showInStore="1">
+                    <label>Number of Days to Keep Logs</label>
+                    <comment>Enter 0 to keep logs forever</comment>
+                    <validate>validate-number</validate>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

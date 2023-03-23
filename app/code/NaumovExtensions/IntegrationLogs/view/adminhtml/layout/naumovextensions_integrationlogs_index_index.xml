@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+ * @category NaumovExtensions
+ * @package NaumovExtensions_IntegrationLogs
+ * @author Anton Naumov <anton2-2000@mail.ru>
+ * @copyright Copyright (c) 2023 NaumovExtensions
+  -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="NaumovExtensions\IntegrationLogs\Block\Adminhtml\LogsGrid" name="logs"/>
+        </referenceContainer>
+        <referenceContainer name="admin.logsgrid.grid"/>
+    </body>
+</page>
