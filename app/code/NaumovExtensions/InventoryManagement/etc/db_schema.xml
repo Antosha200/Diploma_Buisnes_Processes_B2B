@@ -11,9 +11,10 @@
            comment="Inventory Management Table">
         <column xsi:type="int" name="id" nullable="false" comment="ID" identity="true"/>
         <column xsi:type="varchar" name="product_id" nullable="false" length="64" comment="Product ID"/>
-        <column xsi:type="decimal" name="eoq" precision="10" scale="2" nullable="false"
+        <column xsi:type="decimal" name="eoq" precision="10" scale="2" nullable="false" default="0"
                 comment="Economic Order Quantity"/>
-        <column xsi:type="decimal" name="rop" precision="10" scale="2" nullable="false" comment="Reorder Point"/>
+        <column xsi:type="decimal" name="rop" precision="10" scale="2" nullable="false" comment="Reorder Point"
+                default="0"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="id"/>
         </constraint>
