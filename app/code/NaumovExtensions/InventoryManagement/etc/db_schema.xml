@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+ * @category NaumovExtensions
+ * @package NaumovExtensions_InventoryManagement
+ * @author Anton Naumov <anton2-2000@mail.ru>
+ * @copyright Copyright (c) 2023 NaumovExtensions
+  -->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="naumovinventorymanagement_inventory" resource="default" engine="innodb"
+           comment="Inventory Management Table">
+        <column xsi:type="int" name="id" nullable="false" comment="ID" identity="true"/>
+        <column xsi:type="varchar" name="product_id" nullable="false" length="64" comment="Product ID"/>
+        <column xsi:type="decimal" name="eoq" precision="10" scale="2" nullable="false"
+                comment="Economic Order Quantity"/>
+        <column xsi:type="decimal" name="rop" precision="10" scale="2" nullable="false" comment="Reorder Point"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="NAUMOVINVENTORYMANAGEMENT_INVENTORY_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_SKU"
+                    table="naumovinventorymanagement_inventory" column="product_id"
+                    referenceTable="catalog_product_entity" referenceColumn="sku" onDelete="CASCADE"/>
+    </table>
+</schema>
