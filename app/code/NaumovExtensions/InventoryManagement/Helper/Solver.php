@@ -33,7 +33,7 @@ class Solver
         $holdingCost = $product->getData('holding_cost');
 
         if ($holdingCost != 0) {
-            return round(sqrt((2 * $demandPerYear * $orderingCost) / $holdingCost));
+            return round(sqrt((2 * $demandPerYear * $orderingCost) / $holdingCost), 0, PHP_ROUND_HALF_DOWN);
         } else {
 
             return 0;
@@ -47,12 +47,12 @@ class Solver
      * @param StockItemInterface $stockItem
      * @return float
      */
-    public static function calculateRop(Product $product, StockItemInterface $stockItem)
+    public static function calculateRop(Product $product, StockItemInterface $stockItem): float
     {
         $leadTime = $product->getData('lead_time');
         $demandPerDay = $product->getData('demand_per_day');
         $safetyStock = $product->getData('safety_stock');
-        
-        return round($leadTime * $demandPerDay + $safetyStock - $stockItem->getQty());
+
+        return round($leadTime * $demandPerDay + $safetyStock - $stockItem->getQty(), 0, PHP_ROUND_HALF_DOWN);
     }
 }

@@ -23,7 +23,8 @@
                 <td><?= $inventory->getProductId() ?></td>
                 <td><?= $inventory->getEoq() ?></td>
                 <td><?= $inventory->getRop() ?></td>
-                <td><a href="<?= $this->getUrl('inventorymanagement/product/detail', ['id' => $inventory->getId()]) ?>">Details</a>
+                <td><a href="<?= $this->getUrl('naumovextensions_inventorymanagement/detail/detail',
+                        ['id' => $inventory->getId()]) ?>">Details</a>
                 </td>
             </tr>
         <?php endforeach ?>
