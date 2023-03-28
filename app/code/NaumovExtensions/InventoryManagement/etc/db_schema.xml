@@ -23,4 +23,13 @@
                     table="naumovinventorymanagement_inventory" column="product_id"
                     referenceTable="catalog_product_entity" referenceColumn="sku" onDelete="CASCADE"/>
     </table>
+    <table name="catalog_product_entity">
+        <column xsi:type="decimal" name="demand_per_year" nullable="true" scale="4" precision="12"
+                comment="Demand per year"/>
+        <column xsi:type="decimal" name="holding_cost" nullable="true" scale="4" precision="12" comment="Holding cost"/>
+        <column xsi:type="decimal" name="demand_per_day" nullable="true" scale="4" precision="12"
+                comment="Demand per day"/>
+        <column xsi:type="decimal" name="lead_time" nullable="true" scale="4" precision="12" comment="Lead time"/>
+        <column xsi:type="decimal" name="safety_stock" nullable="true" scale="4" precision="12" comment="Safety stock"/>
+    </table>
 </schema>

@@ -81,23 +81,36 @@ class ProductList extends Template
         $collection = $this->inventoryCollectionFactory->create();
 
         $insertQuery = "INSERT INTO $inventoryTable (product_id) SELECT sku FROM $productTable";
+        $deleteQuery = "DELETE FROM $inventoryTable";
+        $setIdQuery = "ALTER TABLE $inventoryTable AUTO_INCREMENT=1;";
 
-        $query = "DELETE FROM naumovinventorymanagement_inventory";
-
-        $setIdQuery = "ALTER TABLE naumovinventorymanagement_inventory AUTO_INCREMENT=1;";
-
-        $connection->query($query);
+        $connection->query($deleteQuery);
         $connection->query($setIdQuery);
         $connection->query($insertQuery);
 
         foreach ($collection as $inventory) {
-            $product = $this->productFactory->create()->load($inventory->getProductId());
+            $productId = $inventory->getProductId();
+            $query = "SELECT entity_id FROM catalog_product_entity WHERE sku = '$productId'";
+            $product_id = $connection->fetchAll($query);
+
+            $product = $this->productFactory->create()->load($product_id);
             $stockItem = $this->stockRegistry->getStockItem($product->getId(), $product->getStore()->getWebsiteId());
 
             $eoq = Solver::calculateEoq($product);
+            if ($eoq <= 0) {
+                $eoq = '<span style="color:red;">' . $eoq . '</span>';
+            } else {
+                $eoq = '<span style="color:blue;">' . $eoq . '</span>';
+            }
             $inventory->setData('eoq', $eoq);
 
             $rop = Solver::calculateRop($product, $stockItem);
+
+            if ($rop < 0) {
+                $rop = '<span style="color:chocolate;">' . $rop . '</span>';
+            } else {
+                $rop = '<span style="color:green;">' . $rop . '</span>';
+            }
             $inventory->setData('rop', $rop);
 
             $inventory->save();

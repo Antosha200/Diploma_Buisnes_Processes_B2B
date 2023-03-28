@@ -19,8 +19,6 @@ use Magento\CatalogInventory\Api\Data\StockItemInterface;
  */
 class Solver
 {
-    //TODO: Check if the correct data comes from DB.
-    //TODO: Check the correctness of formulas, test algorithms on various products. If there are none, create it yourself with the necessary data. View Kovaleva's note for compliance.
     //TODO: (NEXT) - Content on Detail page.
     /**
      * Calculates the EOQ for a given product
@@ -31,11 +29,11 @@ class Solver
     public static function calculateEoq(Product $product)
     {
         $demandPerYear = $product->getData('demand_per_year');
-        $orderingCost = $product->getData('ordering_cost');
+        $orderingCost = $product->getPrice();
         $holdingCost = $product->getData('holding_cost');
 
         if ($holdingCost != 0) {
-            return sqrt((2 * $demandPerYear * $orderingCost) / $holdingCost);
+            return round(sqrt((2 * $demandPerYear * $orderingCost) / $holdingCost));
         } else {
 
             return 0;
@@ -54,7 +52,7 @@ class Solver
         $leadTime = $product->getData('lead_time');
         $demandPerDay = $product->getData('demand_per_day');
         $safetyStock = $product->getData('safety_stock');
-
-        return $leadTime * $demandPerDay + $safetyStock - $stockItem->getQty();
+        
+        return round($leadTime * $demandPerDay + $safetyStock - $stockItem->getQty());
     }
 }
