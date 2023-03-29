@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace NaumovExtensions\InventoryManagement\Helper;
 
 use Magento\Catalog\Model\Product;
-use Magento\CatalogInventory\Api\Data\StockItemInterface;
 
 /**
  * class Solver
@@ -19,7 +18,6 @@ use Magento\CatalogInventory\Api\Data\StockItemInterface;
  */
 class Solver
 {
-    //TODO: (NEXT) - Content on Detail page.
     /**
      * Calculates the EOQ for a given product
      *
@@ -44,15 +42,15 @@ class Solver
      * Calculates the ROP for a given product and stock item
      *
      * @param Product $product
-     * @param StockItemInterface $stockItem
+     * @param float $qty
      * @return float
      */
-    public static function calculateRop(Product $product, StockItemInterface $stockItem): float
+    public static function calculateRop(Product $product, float $qty): float
     {
         $leadTime = $product->getData('lead_time');
         $demandPerDay = $product->getData('demand_per_day');
         $safetyStock = $product->getData('safety_stock');
 
-        return round($leadTime * $demandPerDay + $safetyStock - $stockItem->getQty(), 0, PHP_ROUND_HALF_DOWN);
+        return round($leadTime * $demandPerDay + $safetyStock - $qty, 0, PHP_ROUND_HALF_DOWN);
     }
 }

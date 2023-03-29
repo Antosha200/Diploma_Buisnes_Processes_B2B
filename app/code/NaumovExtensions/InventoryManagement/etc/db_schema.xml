@@ -15,6 +15,7 @@
                 comment="Economic Order Quantity"/>
         <column xsi:type="decimal" name="rop" precision="10" scale="2" nullable="false" comment="Reorder Point"
                 default="0"/>
+        <column xsi:type="decimal" name="stock" nullable="true" scale="4" precision="12" comment="Stock"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="id"/>
         </constraint>

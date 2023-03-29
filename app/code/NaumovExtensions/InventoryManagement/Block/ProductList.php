@@ -39,6 +39,7 @@ class ProductList extends Template
      * @var ProductFactory
      */
     protected ProductFactory $productFactory;
+
     /**
      * @var StockRegistryInterface
      */
@@ -95,6 +96,7 @@ class ProductList extends Template
 
             $product = $this->productFactory->create()->load($product_id);
             $stockItem = $this->stockRegistry->getStockItem($product->getId(), $product->getStore()->getWebsiteId());
+            $qty = $stockItem->getQty();
 
             $eoq = Solver::calculateEoq($product);
             if ($eoq <= 0) {
@@ -104,14 +106,17 @@ class ProductList extends Template
             }
             $inventory->setData('eoq', $eoq);
 
-            $rop = Solver::calculateRop($product, $stockItem);
+            $rop = Solver::calculateRop($product, $qty);
 
+            //kstl
             if ($rop < 0) {
-                $rop = '<span style="color:chocolate;">' . $rop . '</span>';
+                $res = Solver::calculateEoq($product) / 2;
+                $rop = '<span style="color:blue;">' . $res . '</span>';
             } else {
-                $rop = '<span style="color:green;">' . $rop . '</span>';
+                $rop = '<span style="color:blue;">' . $rop . '</span>';
             }
             $inventory->setData('rop', $rop);
+            $inventory->setData('stock', $qty);
 
             $inventory->save();
         }
