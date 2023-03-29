@@ -12,6 +12,7 @@
             <th>SKU</th>
             <th>EOQ (Optimal units)</th>
             <th>ROP (Minimum units)</th>
+            <th>Inventory Status</th>
             <th></th>
         </tr>
         </thead>
@@ -22,6 +23,7 @@
                 <td><?= $inventory->getProductId() ?></td>
                 <td><?= $inventory->getEoq() ?></td>
                 <td><?= $inventory->getRop() ?></td>
+                <td><?= $inventory->getStatus() ?></td>
                 <td><a href="<?= $this->getUrl('naumovextensions_inventorymanagement/detail/detail',
                         ['id' => $inventory->getId()]) ?>">Details</a>
                 </td>

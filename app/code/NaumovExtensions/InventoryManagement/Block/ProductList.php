@@ -118,6 +118,13 @@ class ProductList extends Template
             $inventory->setData('rop', $rop);
             $inventory->setData('stock', $qty);
 
+            if (Solver::calculateRop($product, $qty) > $qty) {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+
+            $inventory->setData('status', $status);
             $inventory->save();
         }
 
