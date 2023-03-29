@@ -23,7 +23,11 @@
                 <td><?= $inventory->getProductId() ?></td>
                 <td><?= $inventory->getEoq() ?></td>
                 <td><?= $inventory->getRop() ?></td>
-                <td><?= $inventory->getStatus() ?></td>
+                <td><?php if ($inventory->getStatus() == 1) {
+                        echo '<div class="green_circle"></div>';
+                    } else {
+                        echo '<div class="red_circle"></div>';
+                    } ?></td>
                 <td><a href="<?= $this->getUrl('naumovextensions_inventorymanagement/detail/detail',
                         ['id' => $inventory->getId()]) ?>">Details</a>
                 </td>
@@ -70,5 +74,34 @@
 
     .product-list a:hover {
         background-color: #3e8e41;
+    }
+
+    .product-list td {
+        text-align: center;
+        padding: 8px;
+        border: 1px solid #ddd;
+        position: relative;
+    }
+
+    .green_circle {
+        width: 15px;
+        height: 15px;
+        background-color: green;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .red_circle {
+        width: 15px;
+        height: 15px;
+        background-color: red;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 </style>
