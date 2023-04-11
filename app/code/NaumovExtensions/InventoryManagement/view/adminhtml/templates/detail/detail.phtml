@@ -1,0 +1,140 @@
+<!--/**-->
+<!--* @category NaumovExtensions-->
+<!--* @package NaumovExtensions_InventoryManagement-->
+<!--* @author Anton Naumov <anton2-2000@mail.ru>-->
+<!--* @copyright Copyright (c) 2023 NaumovExtensions-->
+<!--*/-->
+<div class="product-list">
+    <?php $id = $block['details']['id'];
+    $productId = $block['details']['product_id'];
+    $eoq = $block['details']['eoq'];
+    $rop = $block['details']['rop'];
+    $stock = $block['details']['stock'];
+
+    $eoqRatio = $eoq / $stock;
+    $eoqMin = 0.8;
+    $eoqMax = 1.2;
+
+    if ($eoqRatio >= $eoqMin && $eoqRatio <= $eoqMax) {
+        $eoqStyleColor = 'green';
+        $eoqRecommendations = "The current stock value is not deviated from the EOQ value by
+        more than 0.2. No action is required.";
+    } else {
+        $requiredStock = round(abs($eoq - $stock));
+        $eoqStyleColor = 'orange';
+        $eoqRecommendations = "The current inventory value is deviated from the EOQ value. It is required to adjust the
+        current inventory for the most optimal sales process To achieve the optimal value, change the stock by
+        " . round($requiredStock) . " units.";
+    }
+
+
+    if ($rop > $stock) {
+        $ropStyleColor = 'red';
+        $ropRecommendations = "Attention! The ROP value exceeds the value of current stocks! It is recommended to
+        increase the number of stocks immediately!";
+    } elseif ($rop == $stock) {
+        $ropStyleColor = 'darkred';
+        $ropRecommendations = "The ROP value is equal to the current inventory value. It is recommended to replenish
+        stocks.";
+    } else {
+        $ropStyleColor = 'green';
+        $ropRecommendations = "The amount of current inventory exceeds the ROP value. No action required You should
+        increase the number of stocks as soon as their number reaches " . round($rop) . " units.";
+    }
+    ?>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>SKU</th>
+            <th>EOQ (Optimal units)</th>
+            <th>ROP (Minimum units)</th>
+            <th>Current stock</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><?= $block->escapeHtml($id) ?> </td>
+            <td><?= $block->escapeHtml($productId) ?></td>
+            <td style="color:<?php echo $eoqStyleColor; ?>"><?= $block->escapeHtml(round($eoq), 0,
+                    PHP_ROUND_HALF_DOWN) ?></td>
+            <td style="color:<?php echo $ropStyleColor; ?>"><?= $block->escapeHtml(round($rop), 0,
+                    PHP_ROUND_HALF_DOWN) ?></td>
+            <td><?= $block->escapeHtml(round($stock), 0, PHP_ROUND_HALF_DOWN) ?></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="Recommendations">
+    <br>
+    <h3>EOQ</h3>
+    <p> <?php echo $eoqRecommendations ?></p>
+    <br>
+
+    <hr>
+    <br>
+    <h3>ROP</h3>
+    <p> <?php echo $ropRecommendations ?></p>
+</div>
+
+<div class="eoq" data-attr="<?= (float)$eoq; ?>"></div>
+<div class="rop" data-attr="<?= (float)$rop; ?>"></div>
+<div class="stock" data-attr="<?= (float)$stock; ?>"></div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {'packages': ['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    var eoq = Number(document.querySelector('.eoq').getAttribute('data-attr'));
+    var rop = Number(document.querySelector('.rop').getAttribute('data-attr'));
+    var stock = Number(document.querySelector('.stock').getAttribute('data-attr'));
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Field', 'Value', {role: 'style'}],
+            ['EOQ (Optimal)', eoq, 'color: #3366CC'],
+            ['ROP (Minimum)', rop, 'color: #FF9900'],
+            ['Current stock', stock, 'color: #109618'],
+        ]);
+
+        var options = {
+            title: 'Graphical view',
+            legend: {position: 'none'},
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+</script>
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+<style>
+    .product-list table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .product-list th, .product-list td {
+        text-align: center;
+        padding: 8px;
+        border: 1px solid #ddd;
+    }
+
+    .product-list th {
+        background-color: #f2f2f2;
+    }
+
+    .product-list tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .product-list tr:hover {
+        background-color: #ddd;
+    }
+</style>
+
+

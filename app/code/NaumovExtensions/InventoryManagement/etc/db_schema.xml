@@ -11,9 +11,12 @@
            comment="Inventory Management Table">
         <column xsi:type="int" name="id" nullable="false" comment="ID" identity="true"/>
         <column xsi:type="varchar" name="product_id" nullable="false" length="64" comment="Product ID"/>
-        <column xsi:type="decimal" name="eoq" precision="10" scale="2" nullable="false"
+        <column xsi:type="decimal" name="eoq" precision="10" scale="2" nullable="false" default="0"
                 comment="Economic Order Quantity"/>
-        <column xsi:type="decimal" name="rop" precision="10" scale="2" nullable="false" comment="Reorder Point"/>
+        <column xsi:type="decimal" name="rop" precision="10" scale="2" nullable="false" comment="Reorder Point"
+                default="0"/>
+        <column xsi:type="decimal" name="stock" nullable="true" scale="4" precision="12" comment="Stock"/>
+        <column xsi:type="int" name="status" nullable="true" padding="11" unsigned="true" comment="Inventory status"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="id"/>
         </constraint>
@@ -21,5 +24,14 @@
                     referenceId="NAUMOVINVENTORYMANAGEMENT_INVENTORY_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_SKU"
                     table="naumovinventorymanagement_inventory" column="product_id"
                     referenceTable="catalog_product_entity" referenceColumn="sku" onDelete="CASCADE"/>
+    </table>
+    <table name="catalog_product_entity">
+        <column xsi:type="decimal" name="demand_per_year" nullable="true" scale="4" precision="12"
+                comment="Demand per year"/>
+        <column xsi:type="decimal" name="holding_cost" nullable="true" scale="4" precision="12" comment="Holding cost"/>
+        <column xsi:type="decimal" name="demand_per_day" nullable="true" scale="4" precision="12"
+                comment="Demand per day"/>
+        <column xsi:type="decimal" name="lead_time" nullable="true" scale="4" precision="12" comment="Lead time"/>
+        <column xsi:type="decimal" name="safety_stock" nullable="true" scale="4" precision="12" comment="Safety stock"/>
     </table>
 </schema>

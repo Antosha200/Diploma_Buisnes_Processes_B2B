@@ -1,0 +1,107 @@
+<!--/**-->
+<!--* @category NaumovExtensions-->
+<!--* @package NaumovExtensions_InventoryManagement-->
+<!--* @author Anton Naumov <anton2-2000@mail.ru>-->
+<!--* @copyright Copyright (c) 2023 NaumovExtensions-->
+<!--*/-->
+<div class="product-list">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>SKU</th>
+            <th>EOQ (Optimal units)</th>
+            <th>ROP (Minimum units)</th>
+            <th>Inventory Status</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->getInventoryCollection() as $inventory) : ?>
+            <tr>
+                <td><?= $inventory->getId() ?></td>
+                <td><?= $inventory->getProductId() ?></td>
+                <td><?= $inventory->getEoq() ?></td>
+                <td><?= $inventory->getRop() ?></td>
+                <td><?php if ($inventory->getStatus() == 1) {
+                        echo '<div class="green_circle"></div>';
+                    } else {
+                        echo '<div class="red_circle"></div>';
+                    } ?></td>
+                <td><a href="<?= $this->getUrl('naumovextensions_inventorymanagement/detail/detail',
+                        ['id' => $inventory->getId()]) ?>">Details</a>
+                </td>
+            </tr>
+        <?php endforeach ?>
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .product-list table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .product-list th, .product-list td {
+        text-align: center;
+        padding: 8px;
+        border: 1px solid #ddd;
+    }
+
+    .product-list th {
+        background-color: #f2f2f2;
+    }
+
+    .product-list tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .product-list tr:hover {
+        background-color: #ddd;
+    }
+
+    .product-list a {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+        margin: 5px;
+    }
+
+    .product-list a:hover {
+        background-color: #3e8e41;
+    }
+
+    .product-list td {
+        text-align: center;
+        padding: 8px;
+        border: 1px solid #ddd;
+        position: relative;
+    }
+
+    .green_circle {
+        width: 15px;
+        height: 15px;
+        background-color: green;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .red_circle {
+        width: 15px;
+        height: 15px;
+        background-color: red;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>

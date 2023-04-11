@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+ * @category NaumovExtensions
+ * @package NaumovExtensions_InventoryManagement
+ * @author Anton Naumov <anton2-2000@mail.ru>
+ * @copyright Copyright (c) 2023 NaumovExtensions
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="NaumovExtensions_InventoryManagement::admin" title="Inventory Management"
+             module="NaumovExtensions_InventoryManagement" sortOrder="10"
+             parent="NaumovExtensions_IntegrationLogs::integration_logs"
+             action="naumovextensions_inventorymanagement/index/index" resource="NaumovExtensions_InventoryManagement::admin"/>
+    </menu>
+</config>
